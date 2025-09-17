@@ -2,8 +2,14 @@ import { useState } from 'react';
 import { Plus, Trash2, Check } from 'lucide-react';
 import './App.css'
 
+interface Todo {
+  id: number;
+  text: string;
+  completed: boolean;
+}
+
 export default function TodoApp() {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState<Todo[]>([]);
   const [inputValue, setInputValue] = useState('');
 
   const addTodo = () => {
@@ -17,17 +23,17 @@ export default function TodoApp() {
     }
   };
 
-  const deleteTodo = (id) => {
+  const deleteTodo = (id: number) => {
     setTodos(todos.filter(todo => todo.id !== id));
   };
 
-  const toggleComplete = (id) => {
+  const toggleComplete = (id: number) => {
     setTodos(todos.map(todo =>
       todo.id === id ? { ...todo, completed: !todo.completed } : todo
     ));
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       addTodo();
     }
